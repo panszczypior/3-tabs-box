@@ -18,5 +18,11 @@ const readTextFile = (file) => {
 
 const parsedLog = readTextFile('../assets/varnish.log')
   .then(data => {
-    console.log(data);
+  const paths = data.reduce((acc, currVal) => {
+      const matches = currVal ? currVal.match(/^https?\:\/\/([^\/?#]+)(?:[\/?#]|$)/i) : [];
+      acc.hostnames[matches[1]] = acc.hostnames[matches[1]] ? acc.hostnames[matches[1]]+1 : 1
+      acc.files[currVal] = acc.files[currVal] ? acc.files[currVal]+1 : 1;
+      return acc;
+    },{files:{}, hostnames:{}});
+    console.log(paths);
   });
