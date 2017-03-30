@@ -1,13 +1,11 @@
 const httpGet = (url) => {
     const xmlHttp = new XMLHttpRequest();
     const promise = new Promise((resolve, reject) => {
-      xmlHttp.onreadystatechange = function() {
-          if (xmlHttp.readyState === 4 && xmlHttp.status == 200)
-              resolve(xmlHttp.responseText);
-          } else {
-            reject();
-            // add reject to other files, throw error or smt
+      xmlHttp.onreadystatechange = () => {
+          if(xmlHttp.readyState === 4 && xmlHttp.status == 200){
+            resolve(JSON.parse(xmlHttp.responseText));
           }
+      }
     });
     xmlHttp.open("GET", url, true);
     xmlHttp.send(null);
@@ -22,3 +20,4 @@ httpGet('https://api.flickr.com/services/rest/?method=flickr.photos.search&api_k
 
 // add eslinter
 //construct link to picture, note that size matters
+// reject
