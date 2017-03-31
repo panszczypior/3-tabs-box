@@ -40,6 +40,3 @@ feednami.load(config.vgUrl) /* eslint no-undef: 0 */
     console.log(arr);
   })
   .catch(err => console.log(err));
-
-
-//  catch error

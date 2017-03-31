@@ -42,4 +42,3 @@ const parsedLog = readTextFile('../assets/varnish.log')
 
 // add localstorage
 // add alternative to get hostnames a.href
-// check rawFile.status === 0

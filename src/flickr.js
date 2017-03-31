@@ -36,5 +36,3 @@ httpGet(config.flickUrl)
   .catch(err => console.log(err));
 
 //  construct link to picture, note that size matters
-//  reject
-//  catch rejects
