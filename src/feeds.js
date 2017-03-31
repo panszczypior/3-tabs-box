@@ -1,24 +1,21 @@
-
-const RSS_URL_VG = 'http://www.vg.no/rss/feed/?categories=1068,1069,1070&keywords=&limit=25&format=rss';
-const RSS_URL_REGISTER = 'http://www.theregister.co.uk/headlines.atom';
-const RSS_URL_ARSTECHNICA = 'http://feeds.arstechnica.com/arstechnica/index?format=xml';
+import config from './config.json';
 
 const feeds = [];
 
-feednami.load(RSS_URL_VG) /* eslint no-undef: 0 */
+feednami.load(config.vgUrl) /* eslint no-undef: 0 */
   .then((feed) => {
     for (const entry of feed.entries) {
       const { title, date_ms } = entry;
       feeds.push({ title, date_ms });
     }
-    return feednami.load(RSS_URL_REGISTER);
+    return feednami.load(config.registerUrl);
   })
   .then((feed) => {
     for (const entry of feed.entries) {
       const { title, date_ms } = entry;
       feeds.push({ title, date_ms });
     }
-    return feednami.load(RSS_URL_ARSTECHNICA);
+    return feednami.load(config.arstechnica);
   })
   .then((feed) => {
     for (const entry of feed.entries) {
