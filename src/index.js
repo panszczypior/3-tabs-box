@@ -1,6 +1,31 @@
-import logs from './logs';
+import parsedLogs from './logs';
+import { createList } from './helpers';
 
-logs.parsed.then(data => console.log(data));
+const renderLogs = () => {
+  const {
+    hostnames,
+    files,
+  } = parsedLogs;
+  const topHostnames = hostnames.slice(0, 5);
+  const topFiles = files.slice(0, 5);
+  const list = createList({
+    list: 'list',
+    item: 'item',
+  }, topHostnames);
+
+  render('logs', list);
+};
+
+const renderFeeds = () => {
+};
+
+const renderFlickr = () => {
+};
+
+const render = (containerId, content) => {
+  const container = document.getElementById(containerId);
+  container.appendChild(content);
+};
 
 const initialTabId = '#logs';
 
@@ -14,7 +39,8 @@ const hashChangeHandler = () => {
   case '#flickr':
     return '';
   default:
-    return '';
+    renderLogs();
+    break;
   }
 };
 
