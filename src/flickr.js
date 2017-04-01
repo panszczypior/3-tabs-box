@@ -16,7 +16,10 @@ const httpGet = (url) => {
     };
 
     xmlHttp.onerror = () => {
-      const { status, statusText } = xmlHttp;
+      const {
+        status,
+        statusText,
+      } = xmlHttp;
       reject({
         status,
         statusText,
