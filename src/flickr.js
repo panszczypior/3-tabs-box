@@ -31,8 +31,16 @@ const httpGet = (url) => {
 
 httpGet(config.flickUrl)
   .then((data) => {
-  console.log(data);
+    const photos = data.photos.photo.map((photo) => {
+      const { farm, server, id, secret } = photo;
+      const url = `http://farm${farm}.staticflickr.com/${server}/${id}_${secret}`;
+      return {
+        ...photo,
+        small: `${url}_s.jpg`,
+        medium: `${url}_z.jpg`,
+        large: `${url}_b.jpg`,
+      };
+    });
+    console.log(photos);
   })
   .catch(err => console.log(err));
-
-//  construct link to picture, note that size matters
