@@ -1,47 +1,27 @@
-import config from './config.json';
+import logs from './logs';
 
-const httpGet = (url) => {
-  const xmlHttp = new XMLHttpRequest();
-  const promise = new Promise((resolve, reject) => {
-    xmlHttp.onload = () => {
-      if (xmlHttp.status >= 200 && xmlHttp.status < 300) {
-        resolve(JSON.parse(xmlHttp.responseText));
-      } else {
-        const { status, statusText } = xmlHttp;
-        reject({
-          status,
-          statusText,
-        });
-      }
-    };
+logs.parsed.then(data => console.log(data));
 
-    xmlHttp.onerror = () => {
-      const { status, statusText } = xmlHttp;
-      reject({
-        status,
-        statusText,
-      });
-    };
-  });
+const initialTabId = '#logs';
 
-  xmlHttp.open('GET', url, true);
-  xmlHttp.send(null);
-  return promise;
+const hashChangeHandler = () => {
+  if (!location.hash) {
+    return location.assign(initialTabId);
+  }
+  switch (location.hash) {
+  case '#feeds':
+    return '';
+  case '#flickr':
+    return '';
+  default:
+    return '';
+  }
 };
 
-httpGet(config.flickUrl)
-  .then((data) => {
-    const photos = data.photos.photo.map((photo) => {
-      const { farm, server, id, secret } = photo;
-      const url = `http://farm${farm}.staticflickr.com/${server}/${id}_${secret}`;
-      return { ...photo,
-        ...{
-          small: `${url}_s.jpg`,
-          medium: `${url}_z.jpg`,
-          large: `${url}_b.jpg`,
-        },
-      };
-    });
-    console.log(photos);
-  })
-  .catch(err => console.log(err));
+const DOMContentLoadedHadler = () => {
+  hashChangeHandler();
+};
+
+window.addEventListener('DOMContentLoaded', DOMContentLoadedHadler);
+
+window.addEventListener('hashchange', hashChangeHandler);

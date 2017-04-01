@@ -1,43 +1,102 @@
 import parse from 'clf-parser';
+import logs from '../assets/varnish.log';
 
 const readTextFile = (file) => {
   const rawFile = new XMLHttpRequest();
   const promise = new Promise((resolve, reject) => {
+    const errorText = 'Couldn\'t get data';
+
     rawFile.open('GET', file, false);
     rawFile.onload = () => {
-      if (rawFile.readyState === 4 && (rawFile.status === 200 || rawFile.status === 0)) {
-        resolve(rawFile.responseText.split(/\n/).map(parse).map(item => item.path));
+      if (
+        rawFile.readyState === 4 &&
+        (rawFile.status === 200 || rawFile.status === 0)
+      ) {
+        resolve(rawFile.responseText);
       } else {
-        reject(`Couldn't get data`);
+        reject(errorText); // extract
       }
     };
 
     rawFile.onerror = () => {
-      reject(`Couldn't get data`);
-    }
+      reject(errorText);
+    };
     rawFile.send(null);
   });
 
   return promise;
 };
 
-const parsedLog = readTextFile('../assets/varnish.log')
-  .then((data) => {
-    const paths = data.reduce((acc, currVal) => {
-      const matches = currVal ? currVal.match(/^https?\:\/\/([^\/?#]+)(?:[\/?#]|$)/i) : [];
-      const hostname = matches[1];
-      acc.hostnames[hostname] = acc.hostnames[hostname] ? acc.hostnames[hostname] + 1 : 1
-      acc.files[currVal] = acc.files[currVal] ? acc.files[currVal] + 1 : 1;
-      return acc;
-    }, { files: {}, hostnames: {} });
-    return paths;
-  })
-  .then((paths) => {
-    const { hostnames, files } = paths;
-    const hostnamesSorted = Object.keys(hostnames).sort((a, b) => hostnames[b] - hostnames[a]);
-    const filesSorted = Object.keys(files).sort((a, b) => files[b] - files[a]);
-    console.log(filesSorted);
-  });
+const parseLogs = (data) => {
+  const initialAcc = {
+    files: {},
+    hostnames: {},
+  };
+  const matchRegEx = /^https?:\/\/([^/?#]+)(?:[/?#]|$)/i;
+  const splitedData = data
+    .split(/\n/)
+    .map(parse)
+    .map(item => item.path);
+  const paths = splitedData.reduce((acc, currVal) => {
+    const matches = currVal
+      ? currVal.match(matchRegEx)
+      : [];
+    const hostname = matches[1];
+
+    const newAcc = {
+      hostnames: {
+        ...acc.hostnames,
+        [hostname]: acc.hostnames[hostname]
+          ? acc.hostnames[hostname] + 1
+          : 1,
+      },
+      files: {
+        ...acc.files,
+        [currVal]: acc.files[currVal]
+          ? acc.files[currVal] + 1
+          : 1,
+      },
+    };
+
+    return newAcc;
+  }, initialAcc);
+
+  return paths;
+};
+
+const sortLogs = (data) => {
+  const {
+    hostnames,
+    files,
+  } = data;
+  const hostnamesSorted = Object.keys(hostnames)
+    .sort((a, b) => hostnames[b] - hostnames[a])
+    .map(hostname => ({
+      hostname,
+      count: hostnames[hostname],
+    }));
+  const filesSorted = Object.keys(files)
+    .sort((a, b) => files[b] - files[a])
+    .map(file => ({
+      file,
+      count: files[file],
+    }));
+
+  return {
+    hostnames: hostnamesSorted,
+    files: filesSorted,
+  };
+};
+
+export default {
+  parsed: readTextFile('../assets/varnish.log')
+    .then(parseLogs)
+    .then(sortLogs),
+};
+
+// export default {
+//   parsed: sortLogs(parseLogs(logs)),
+// };
 
 
 // add localstorage
