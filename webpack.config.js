@@ -1,15 +1,43 @@
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const helpers = require('./helpers');
+
+const extractPlugin = new ExtractTextPlugin({
+  filename: 'main.css',
+});
+
 module.exports = {
-  entry: './src/index.js',
+  context: helpers.root('src'),
+  entry: {
+    index: [
+      './index.js',
+      './main.scss',
+    ],
+  },
   output: {
     path: __dirname,
-    publicPath: '/',
-    filename: 'bundle.js'
+    publicPath: '/dist',
+    filename: 'bundle.js',
   },
   module: {
-    loaders: [{
-      test: /\.js$/,
-      exclude: /node_modules/,
-      loader: 'babel-loader'
-    }]
-  }
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: 'babel-loader',
+      },
+      {
+        test: /\.scss$/,
+        use: extractPlugin.extract({
+          use: ['css-loader', 'sass-loader'],
+        }),
+      },
+      {
+        test: /\.log$/,
+        loader: 'raw-loader',
+      },
+    ],
+  },
+  plugins: [
+    extractPlugin,
+  ],
 };
