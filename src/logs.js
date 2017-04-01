@@ -72,14 +72,14 @@ const sortLogs = (data) => {
   const hostnamesSorted = Object.keys(hostnames)
     .sort((a, b) => hostnames[b] - hostnames[a])
     .map(hostname => ({
-      hostname,
-      count: hostnames[hostname],
+      key: hostname,
+      value: hostnames[hostname],
     }));
   const filesSorted = Object.keys(files)
     .sort((a, b) => files[b] - files[a])
     .map(file => ({
-      file,
-      count: files[file],
+      key: file,
+      value: files[file],
     }));
 
   return {
@@ -88,15 +88,13 @@ const sortLogs = (data) => {
   };
 };
 
-export default {
-  parsed: readTextFile('../assets/varnish.log')
-    .then(parseLogs)
-    .then(sortLogs),
-};
-
 // export default {
-//   parsed: sortLogs(parseLogs(logs)),
+//   parsed: readTextFile('../assets/varnish.log')
+//     .then(parseLogs)
+//     .then(sortLogs),
 // };
+
+export default sortLogs(parseLogs(logs));
 
 
 // add localstorage
