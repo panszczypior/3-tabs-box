@@ -8,13 +8,23 @@ const createElement = (type, className, data) => {
   return elem;
 };
 
-const createList = (classNames, items) => {
+const createList = (classNames, items, tabId) => {
   const list = document.createElement('ul');
   list.className = classNames.list
     ? classNames.list
     : 'list';
   items.forEach((item) => { // item przekaz i pracuj na nim to sa dane
-    const text = `Count: ${item.value}, name: ${item.key}`
+    let text;
+    switch (tabId) {
+    case 'logs':
+      text = `Count: ${item.value}, Name: ${item.key}`;
+      break;
+    case 'feeds':
+      text = `Date: ${item.title}, Title: ${item.isoDate}`;
+      break;
+    default:
+      break;
+    }
     const elem = createElement('li', classNames.item, text);
     list.appendChild(elem);
   });
