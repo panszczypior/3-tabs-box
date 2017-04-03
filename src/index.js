@@ -1,7 +1,7 @@
 import parsedLogs from './logs';
 import { createList } from './helpers';
 import feeds from './feeds';
-import events from './test';
+import events from './events';
 
 const spinner = document.querySelector('.spinner');
 events.on('startFetching', () => {
