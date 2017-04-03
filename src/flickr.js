@@ -32,18 +32,27 @@ const httpGet = (url) => {
   return promise;
 };
 
-httpGet(config.flickUrl)
-  .then((data) => {
-    const photos = data.photos.photo.map((photo) => {
-      const { farm, server, id, secret } = photo;
-      const url = `http://farm${farm}.staticflickr.com/${server}/${id}_${secret}`;
-      return {
-        ...photo,
-        small: `${url}_s.jpg`,
-        medium: `${url}_z.jpg`,
-        large: `${url}_b.jpg`,
-      };
-    });
-    console.log(photos);
-  })
-  .catch(err => console.log(err));
+const getPhotos = () => {
+  return httpGet(config.flickUrl)
+    .then((data) => {
+      const photos = data.photos.photo.map((photo) => {
+        const { farm, server, id, secret } = photo;
+        const url = `http://farm${farm}.staticflickr.com/${server}/${id}_${secret}`;
+        return {
+          ...photo,
+          small: `${url}_s.jpg`,
+          medium: `${url}_z.jpg`,
+          large: `${url}_b.jpg`,
+        };
+      });
+      return photos;
+    })
+    .catch(err => console.log(err));
+};
+
+export default {
+  get: getPhotos,
+};
+
+
+// params page, per_page
