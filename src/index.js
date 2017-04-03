@@ -1,8 +1,22 @@
 import parsedLogs from './logs';
 import { createList } from './helpers';
 import feeds from './feeds';
+import events from './test';
 
-const render = (container, content) => {
+const spinner = document.querySelector('.spinner');
+events.on('startFetching', () => {
+  spinner.classList.remove('hide');
+});
+events.on('stopFetching', () => {
+  spinner.classList.add('hide');
+});
+
+const renderStaticContent = (container, content) => {
+  container.appendChild(content);
+};
+
+const renderDynamicContent = (container, content) => {
+  container.innerHTML = '';
   container.appendChild(content);
 };
 
@@ -26,23 +40,21 @@ const renderLogs = () => {
       item: 'item',
     }, topFiles, 'logs');
 
-    render(container, hostsList);
-    render(container, filesList);
+    renderStaticContent(container, hostsList);
+    renderStaticContent(container, filesList);
   }
 };
 
 const renderFeeds = () => {
   const containerId = 'feeds';
   const container = document.getElementById(containerId);
-  if (!container.hasChildNodes()) {
-    feeds.then((data) => {
-      const feed = createList({
-        list: 'list',
-        item: 'item',
-      }, data, 'feeds');
-      render(container, feed);
-    });
-  }
+  feeds.get().then((data) => {
+    const feed = createList({
+      list: 'list',
+      item: 'item',
+    }, data, 'feeds');
+    renderDynamicContent(container, feed);
+  });
 };
 
 const renderFlickr = () => {
