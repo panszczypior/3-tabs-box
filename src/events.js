@@ -32,4 +32,4 @@ export default {
   on,
   off,
   emit,
-}
+};

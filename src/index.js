@@ -1,7 +1,8 @@
 import parsedLogs from './logs';
-import { createList } from './helpers';
+import { createList, createGallery } from './helpers';
 import feeds from './feeds';
 import events from './events';
+import flickrApi from './flickr';
 
 const spinner = document.querySelector('.spinner');
 events.on('startFetching', () => {
@@ -58,6 +59,15 @@ const renderFeeds = () => {
 };
 
 const renderFlickr = () => {
+  const containerId = 'flickr';
+  const container = document.getElementById(containerId);
+  flickrApi.get().then((data) => {
+    const flickr = createGallery({
+      gallery: 'photos-container',
+      photo: 'photo',
+    }, data);
+    renderDynamicContent(container, flickr);
+  });
 };
 
 const initialTabId = '#logs';
@@ -70,7 +80,7 @@ const hashChangeHandler = () => {
   case '#feeds':
     return renderFeeds();
   case '#flickr':
-    return '';
+    return renderFlickr();
   default:
     renderLogs();
     break;

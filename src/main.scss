@@ -133,3 +133,16 @@ nav {
     stroke-dashoffset: -124;
   }
 }
+
+.photos-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.photo {
+  display: block;
+  width: 200px;
+  height: 200px;
+  margin: 10px 10px;
+}

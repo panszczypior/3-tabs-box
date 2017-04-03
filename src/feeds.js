@@ -1,6 +1,5 @@
 import config from './config.json';
-import events from './test';
-
+import events from './events';
 const feeds = [];
 
 const populateFeeds = (feed) => {
