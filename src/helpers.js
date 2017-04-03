@@ -32,11 +32,35 @@ const createList = (classNames, items, tabId) => {
   return list;
 };
 
+const createPhoto = (type, className, url) => {
+  const elem = document.createElement(type);
+  elem.className = elem.className
+    ? elem.className
+    : 'photo';
+  elem.src = url;
+  return elem;
+};
+
+const createGallery = (classNames, items) => {
+  const gallery = document.createElement('div');
+  gallery.className = classNames.gallery
+    ? classNames.gallery
+    : 'photos-container';
+  items.forEach((item) => {
+    const elem = createPhoto('img', classNames.photo, item.medium);
+    gallery.appendChild(elem);
+  });
+
+  return gallery;
+};
+
 const helpers = {
   createList,
+  createGallery,
 };
 
 export {
   helpers as default,
   createList,
+  createGallery,
 };
