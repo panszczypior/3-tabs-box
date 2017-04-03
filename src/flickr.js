@@ -32,8 +32,8 @@ const httpGet = (url) => {
   return promise;
 };
 
-const getPhotos = () => {
-  return httpGet(config.flickUrl)
+const getPhotos = (text = 'Kraków') => {
+  return httpGet(`${config.flickUrl}&text=${text}`)
     .then((data) => {
       const photos = data.photos.photo.map((photo) => {
         const { farm, server, id, secret } = photo;
@@ -56,3 +56,5 @@ export default {
 
 
 // params page, per_page
+// search
+// spinner while loading pictures

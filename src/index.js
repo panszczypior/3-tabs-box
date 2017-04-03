@@ -58,15 +58,15 @@ const renderFeeds = () => {
   });
 };
 
-const renderFlickr = () => {
+const renderFlickr = (text) => {
   const containerId = 'flickr';
   const container = document.getElementById(containerId);
-  flickrApi.get().then((data) => {
+  flickrApi.get(text).then((data) => {
     const flickr = createGallery({
       gallery: 'photos-container',
       photo: 'photo',
     }, data);
-    renderDynamicContent(container, flickr);
+    renderStaticContent(container, flickr);
   });
 };
 
@@ -94,3 +94,9 @@ const DOMContentLoadedHadler = () => {
 window.addEventListener('DOMContentLoaded', DOMContentLoadedHadler);
 
 window.addEventListener('hashchange', hashChangeHandler);
+
+const input = document.getElementById('input');
+input.addEventListener('change', (e) => {
+  renderFlickr(e.target.value);
+  e.target.value = '';
+});

@@ -1,5 +1,5 @@
 {
-  "flickUrl": "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=91bace887faabf57a704cea71a25eaf2&format=json&nojsoncallback=1&text=Krak%C3%93w&min_taken_date=2017-01-01&sort=date-posted-desc",
+  "flickUrl": "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=91bace887faabf57a704cea71a25eaf2&format=json&nojsoncallback=1&min_taken_date=2017-01-01&sort=date-posted-desc",
   "vgUrl": "http://www.vg.no/rss/feed/?categories=1068,1069,1070&keywords=&limit=25&format=rss",
   "registerUrl": "http://www.theregister.co.uk/headlines.atom",
   "arstechnica": "http://feeds.arstechnica.com/arstechnica/index?format=xml"

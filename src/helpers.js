@@ -42,7 +42,10 @@ const createPhoto = (type, className, url) => {
 };
 
 const createGallery = (classNames, items) => {
-  const gallery = document.createElement('div');
+  const gallery = document.querySelector('.photos-container');
+  if (gallery.hasChildNodes()) {
+    gallery.innerHTML = '';
+  }
   gallery.className = classNames.gallery
     ? classNames.gallery
     : 'photos-container';
