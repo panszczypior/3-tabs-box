@@ -102,9 +102,9 @@ const input = document.getElementById('input');
 //   // e.target.value = '';
 // });
 
-const hello = (data) => {
-  console.log('...', data);
+const renderFlickrWrapper = (event) => {
+  renderFlickr(event.target.value);
 };
 
-const some = debounce(hello, 300);
-input.addEventListener('keyup', some.bind(this, 'cze'));
+const handleKeyUp = debounce(renderFlickrWrapper, 400);
+input.addEventListener('keyup', handleKeyUp.bind(this));
