@@ -1,5 +1,5 @@
 import parsedLogs from './logs';
-import { createList, createGallery } from './helpers';
+import { createList, createGallery, debounce } from './helpers';
 import feeds from './feeds';
 import events from './events';
 import flickrApi from './flickr';
@@ -96,7 +96,15 @@ window.addEventListener('DOMContentLoaded', DOMContentLoadedHadler);
 window.addEventListener('hashchange', hashChangeHandler);
 
 const input = document.getElementById('input');
-input.addEventListener('change', (e) => {
-  renderFlickr(e.target.value);
-  e.target.value = '';
-});
+// input.addEventListener('keyup', (e) => {
+//   console.log(e.target.value);
+//   // renderFlickr(e.target.value);
+//   // e.target.value = '';
+// });
+
+const hello = (data) => {
+  console.log('...', data);
+};
+
+const some = debounce(hello, 300);
+input.addEventListener('keyup', some.bind(this, 'cze'));

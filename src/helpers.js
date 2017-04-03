@@ -57,13 +57,27 @@ const createGallery = (classNames, items) => {
   return gallery;
 };
 
+const debounce = (fn, wait) => {
+  let timeout;
+  return (...args) => {
+    const later = () => {
+      timeout = null;
+      fn(...args);
+    };
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+  };
+};
+
 const helpers = {
   createList,
   createGallery,
+  debounce,
 };
 
 export {
   helpers as default,
   createList,
   createGallery,
+  debounce,
 };
