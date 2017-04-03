@@ -1,4 +1,5 @@
 import config from './config.json';
+import events from './test';
 
 const feeds = [];
 
@@ -15,20 +16,29 @@ const sortFeeds = feed => (
     .map(item => ({ ...item, isoDate: new Date(item.date_ms) }))
 );
 
-export default feednami.load(config.vgUrl) /* eslint no-undef: 0 */
-  .then((feed) => {
-    populateFeeds(feed.entries);
-    return feednami.load(config.registerUrl);
-  })
-  .catch(() => feednami.load(config.registerUrl))
-  .then((feed) => {
-    populateFeeds(feed.entries);
-    return feednami.load(config.arstechnica);
-  })
-  .catch(() => feednami.load(config.arstechnica))
-  .then((feed) => {
-    populateFeeds(feed.entries);
-    const arr = sortFeeds(feeds);
-    return arr;
-  })
-  .catch((err) => console.log(err));
+const getFeeds = () => {
+  feeds.length = 0;
+  events.emit('startFetching');
+  return feednami.load(config.vgUrl) /* eslint no-undef: 0 */
+    .then((feed) => {
+      populateFeeds(feed.entries);
+      return feednami.load(config.registerUrl);
+    })
+    .catch(() => feednami.load(config.registerUrl))
+    .then((feed) => {
+      populateFeeds(feed.entries);
+      return feednami.load(config.arstechnica);
+    })
+    .catch(() => feednami.load(config.arstechnica))
+    .then((feed) => {
+      populateFeeds(feed.entries);
+      const arr = sortFeeds(feeds);
+      events.emit('stopFetching');
+      return arr;
+    })
+    .catch((err) => console.log(err));
+}
+
+export default {
+  get: getFeeds,
+};

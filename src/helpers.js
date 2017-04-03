@@ -20,7 +20,7 @@ const createList = (classNames, items, tabId) => {
       text = `Count: ${item.value}, Name: ${item.key}`;
       break;
     case 'feeds':
-      text = `Date: ${item.title}, Title: ${item.isoDate}`;
+      text = `Date: ${item.isoDate}, Title: ${item.title}`;
       break;
     default:
       break;
