@@ -119,7 +119,7 @@ window.addEventListener('DOMContentLoaded', DOMContentLoadedHadler);
 
 window.addEventListener('hashchange', hashChangeHandler);
 
-const input = document.getElementById('input');
+const input = document.querySelector('.search-photo-input');
 
 const renderFlickrWrapper = (event) => {
   renderFlickr(event.target.value);
