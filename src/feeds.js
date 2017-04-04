@@ -1,5 +1,6 @@
 import config from './config.json';
 import events from './events';
+import { httpGet } from './httpWrapper';
 
 const feeds = [];
 
@@ -19,18 +20,18 @@ const sortFeeds = feed => (
 const getFeeds = () => {
   feeds.length = 0;
   events.emit('startFetching');
-  return feednami.load(config.vgUrl) /* eslint no-undef: 0 */
-    .then((feed) => {
+  return httpGet(`https://api.feednami.com/api/v1.1/feeds/load?url=${config.vgUrl}`) /* eslint no-undef: 0 */
+    .then(({ feed }) => {
       populateFeeds(feed.entries);
-      return feednami.load(config.registerUrl);
+      return httpGet(`https://api.feednami.com/api/v1.1/feeds/load?url=${config.registerUrl}`);
     })
-    .catch(() => feednami.load(config.registerUrl))
-    .then((feed) => {
+    .catch(() => httpGet(`https://api.feednami.com/api/v1.1/feeds/load?url=${config.registerUrl}`))
+    .then(({ feed }) => {
       populateFeeds(feed.entries);
-      return feednami.load(config.arstechnica);
+      return httpGet(`https://api.feednami.com/api/v1.1/feeds/load?url=${config.arstechnica}`);
     })
-    .catch(() => feednami.load(config.arstechnica))
-    .then((feed) => {
+    .catch(() => httpGet(`https://api.feednami.com/api/v1.1/feeds/load?url=${config.arstechnica}`))
+    .then(({ feed }) => {
       populateFeeds(feed.entries);
       const arr = sortFeeds(feeds);
       events.emit('stopFetching');
