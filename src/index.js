@@ -1,20 +1,9 @@
 import logs from './logs';
 import { createList, createGallery, debounce } from './helpers';
 import feeds from './feeds';
-import events from './events';
 import flickrApi from './flickr';
 import { classNames, tabContentIds } from './consts';
-
-const spinner = document.querySelector('.spinner');
-events.on('startFetching', () => {
-  spinner.classList.remove(classNames.hide);
-});
-events.on('stopFetching', () => {
-  spinner.classList.add(classNames.hide);
-});
-events.on('errorFetching', () => {
-  spinner.classList.add(classNames.hide);
-});
+import eventsSubs from './eventsSubscriptions'; /* eslint no-unused-vars:0 */
 
 const clearPrevTab = (containerId) => {
   const elem = document.getElementById(containerId);
@@ -84,11 +73,6 @@ const renderFlickr = (text) => {
 
 const initialTabId = '#first';
 
-// const anchors = document.querySelectorAll('.tab-menu__link');
-// [...anchors].forEach(anchor => {
-//   //
-// });
-// console.log(anchors);
 let prevContainerId;
 
 const hashChangeHandler = () => {
