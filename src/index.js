@@ -36,32 +36,29 @@ const renderDynamicContent = (container, content) => {
 const renderLogs = () => {
   const containerId = 'first-logs';
   const container = document.getElementById(containerId);
-  if (!container.hasChildNodes()) {
-    const {
-      hostnames,
-      files,
-    } = parsedLogs;
-    const topHostnames = hostnames.slice(0, 5);
-    const topFiles = files.slice(0, 5);
-    const hostsList = createList({
-      list: 'list',
-      item: 'item',
-    }, topHostnames, 'logs');
+  const {
+    hostnames,
+    files,
+  } = parsedLogs;
+  const topHostnames = hostnames.slice(0, 5);
+  const topFiles = files.slice(0, 5);
+  const hostsList = createList({
+    list: 'list',
+    item: 'item',
+  }, topHostnames, 'logs');
 
-    const filesList = createList({
-      list: 'list',
-      item: 'item',
-    }, topFiles, 'logs');
-
-    renderStaticContent(container, hostsList);
-    renderStaticContent(container, filesList);
-  }
+  const filesList = createList({
+    list: 'list',
+    item: 'item',
+  }, topFiles, 'logs');
+  container.innerHTML = '';
+  renderStaticContent(container, hostsList);
+  renderStaticContent(container, filesList);
 };
 
 const renderFeeds = () => {
   const containerId = 'second-feeds';
   const container = document.getElementById(containerId);
-  // container.style.display = 'block';
   feeds.get().then((data) => {
     const feed = createList({
       list: 'list',
@@ -93,7 +90,7 @@ const initialTabId = '#first';
 // console.log(anchors);
 let prevContainerId;
 
-const hashChangeHandler = (a,b,c) => {
+const hashChangeHandler = () => {
   clearPrevTab(prevContainerId);
   if (!location.hash) {
     return location.assign(initialTabId);
