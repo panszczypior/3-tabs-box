@@ -1,4 +1,4 @@
-import { tabContentIds } from './consts';
+import { classNames as _classNames, tabContentIds } from './consts';
 
 const createElement = (type, className, data) => {
   const elem = document.createElement(type);
@@ -34,21 +34,17 @@ const createList = (classNames, items, tabId) => {
 
 const createPhoto = (type, className, url) => {
   const elem = document.createElement(type);
-  elem.className = elem.className
-    ? elem.className
-    : 'photo';
+  elem.className = className || 'photos-container__photo';
   elem.style.backgroundImage = `url(${url})`;
   return elem;
 };
 
 const createGallery = (classNames, items) => {
-  const gallery = document.querySelector('.photos-container');
+  const gallery = document.querySelector(`.${_classNames.photosGallery}`);
   if (gallery.hasChildNodes()) {
     gallery.innerHTML = '';
   }
-  gallery.className = classNames.gallery
-    ? classNames.gallery
-    : 'photos-container';
+  gallery.className = classNames.gallery || 'photos-container';
   items.forEach((item) => {
     const elem = createPhoto('div', classNames.photo, item.medium);
     gallery.appendChild(elem);

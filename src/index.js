@@ -1,10 +1,13 @@
+/* eslint no-underscore-dangle:0 */
+/* eslint no-unused-vars:0 */
 import logs from './logs';
 import { createList, createGallery, debounce } from './helpers';
 import feeds from './feeds';
 import flickrApi from './flickr';
 import { classNames, tabContentIds } from './consts';
-import eventsSubs from './eventsSubscriptions'; /* eslint no-unused-vars:0 */
-
+import eventsSubs from './eventsSubscriptions';
+import { input } from './domElements';
+console.log(classNames);
 const clearPrevTab = (containerId) => {
   const elem = document.getElementById(containerId);
   if (elem) {
@@ -13,14 +16,16 @@ const clearPrevTab = (containerId) => {
 };
 
 const renderStaticContent = (container, content) => {
-  container.style.display = 'block';
-  container.appendChild(content);
+  const _container = container;
+  _container.style.display = 'block';
+  _container.appendChild(content);
 };
 
 const renderDynamicContent = (container, content) => {
-  container.style.display = 'block';
-  container.innerHTML = '';
-  container.appendChild(content);
+  const _container = container;
+  _container.style.display = 'block';
+  _container.innerHTML = '';
+  _container.appendChild(content);
 };
 
 const renderLogs = () => {
@@ -38,7 +43,7 @@ const renderLogs = () => {
     const filesList = createList({
       list,
       item: listItem,
-    }, topFiles, 'logs');
+    }, topFiles, tabContentIds.logs);
     container.innerHTML = '';
     renderStaticContent(container, hostsList);
     renderStaticContent(container, filesList);
@@ -64,8 +69,8 @@ const renderFlickr = (text) => {
   // container.style.display = 'block';
   flickrApi.get(text).then((data) => {
     const flickr = createGallery({
-      gallery: 'photos-container',
-      photo: 'photo',
+      gallery: classNames.photosGallery,
+      photo: classNames.photo,
     }, data);
     renderStaticContent(container, flickr);
   });
@@ -101,17 +106,9 @@ window.addEventListener('DOMContentLoaded', DOMContentLoadedHadler);
 
 window.addEventListener('hashchange', hashChangeHandler);
 
-const input = document.querySelector('.material-design-textarea-component__input');
-
 const renderFlickrWrapper = (event) => {
   renderFlickr(event.target.value);
 };
 
 const handleKeyUp = debounce(renderFlickrWrapper, 400);
 input.addEventListener('keyup', handleKeyUp.bind(this));
-
-// document.querySelector('.tab-menu').addEventListener('click', (e) => {
-//   if (e.target && e.target.nodeName === 'A') {
-//     location.reload();
-//   }
-// });

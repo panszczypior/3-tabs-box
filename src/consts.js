@@ -8,6 +8,8 @@ const classNames = {
   hide: 'hide',
   list: 'list',
   listItem: 'list__item',
+  photosGallery: 'photos-container',
+  photo: 'photos-container__photo',
 };
 
 const consts = {
