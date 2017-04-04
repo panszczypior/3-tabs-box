@@ -3,16 +3,17 @@ import { createList, createGallery, debounce } from './helpers';
 import feeds from './feeds';
 import events from './events';
 import flickrApi from './flickr';
+import { classNames, tabContentIds } from './consts';
 
 const spinner = document.querySelector('.spinner');
 events.on('startFetching', () => {
-  spinner.classList.remove('hide');
+  spinner.classList.remove(classNames.hide);
 });
 events.on('stopFetching', () => {
-  spinner.classList.add('hide');
+  spinner.classList.add(classNames.hide);
 });
 events.on('errorFetching', () => {
-  spinner.classList.add('hide');
+  spinner.classList.add(classNames.hide);
 });
 
 const clearPrevTab = (containerId) => {
@@ -34,19 +35,20 @@ const renderDynamicContent = (container, content) => {
 };
 
 const renderLogs = () => {
-  const containerId = 'first-logs';
+  const containerId = tabContentIds.logs;
   const container = document.getElementById(containerId);
   logs.get().then(({ hostnames, files }) => {
     const topHostnames = hostnames.slice(0, 5);
     const topFiles = files.slice(0, 5);
+    const { list, listItem } = classNames;
     const hostsList = createList({
-      list: 'list',
-      item: '__item',
-    }, topHostnames, 'logs');
+      list,
+      item: listItem,
+    }, topHostnames, tabContentIds.logs);
 
     const filesList = createList({
-      list: 'list',
-      item: '__item',
+      list,
+      item: listItem,
     }, topFiles, 'logs');
     container.innerHTML = '';
     renderStaticContent(container, hostsList);
@@ -55,19 +57,20 @@ const renderLogs = () => {
 };
 
 const renderFeeds = () => {
-  const containerId = 'second-feeds';
+  const containerId = tabContentIds.feeds;
   const container = document.getElementById(containerId);
   feeds.get().then((data) => {
+    const { list, listItem } = classNames;
     const feed = createList({
-      list: 'list',
-      item: '__item',
-    }, data, 'feeds');
+      list,
+      item: listItem,
+    }, data, tabContentIds.feeds);
     renderDynamicContent(container, feed);
   });
 };
 
 const renderFlickr = (text) => {
-  const containerId = 'third-flickr';
+  const containerId = tabContentIds.flickr;
   const container = document.getElementById(containerId);
   // container.style.display = 'block';
   flickrApi.get(text).then((data) => {
@@ -95,17 +98,14 @@ const hashChangeHandler = () => {
   }
   switch (location.hash) {
   case '#second':
-    prevContainerId = 'second-feeds';
-    renderFeeds();
-    break;
+    prevContainerId = tabContentIds.feeds;
+    return renderFeeds();
   case '#third':
-    prevContainerId = 'third-flickr';
-    renderFlickr();
-    break;
+    prevContainerId = tabContentIds.flickr;
+    return renderFlickr();
   default:
-    prevContainerId = 'first-logs';
-    renderLogs();
-    break;
+    prevContainerId = tabContentIds.logs;
+    return renderLogs();
   }
 };
 

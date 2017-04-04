@@ -1,9 +1,9 @@
+import { tabContentIds } from './consts';
+
 const createElement = (type, className, data) => {
   const elem = document.createElement(type);
   const text = document.createTextNode(data);
-  elem.className = elem.className
-    ? elem.className
-    : 'list__item';
+  elem.className = className || 'list-item';
   elem.appendChild(text);
   return elem;
 };
@@ -16,10 +16,10 @@ const createList = (classNames, items, tabId) => {
   items.forEach((item) => { // item przekaz i pracuj na nim to sa dane
     let text;
     switch (tabId) {
-    case 'logs':
+    case tabContentIds.logs:
       text = `Count: ${item.value}, Name: ${item.key}`;
       break;
-    case 'feeds':
+    case tabContentIds.feeds:
       text = `Date: ${item.isoDate}, Title: ${item.title}`;
       break;
     default:

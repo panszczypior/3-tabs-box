@@ -9,9 +9,9 @@
 // test on mobile devices
 // restyle app
 // add style lint
-// add scale picture while hover
 // faster loading time for pictures
 // reorganize strcuture of app folders
+// const
 
 const events = {};
 
