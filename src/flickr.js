@@ -1,4 +1,5 @@
 import config from './config.json';
+import events from './events';
 
 const httpGet = (url) => {
   const xmlHttp = new XMLHttpRequest();
@@ -33,6 +34,7 @@ const httpGet = (url) => {
 };
 
 const getPhotos = (text = 'Kraków') => {
+  events.emit('startFetching');
   return httpGet(`${config.flickUrl}&text=${text}`)
     .then((data) => {
       const photos = data.photos.photo.map((photo) => {
@@ -45,9 +47,12 @@ const getPhotos = (text = 'Kraków') => {
           large: `${url}_b.jpg`,
         };
       });
+      events.emit('stopFetching');
       return photos;
     })
-    .catch(err => console.log(err));
+    .catch(() => {
+      events.emit('errorFetching');
+    });
 };
 
 export default {

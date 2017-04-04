@@ -9,7 +9,7 @@
 // add localstorage -> logs
 // add alternative to get hostnames a.href -> logs
 // clear asynchronus requests if tab is changed
-
+// check document.querySelector, you shouldn't touch dom too much
 // test on different browsers
 // test on mobile devices
 // restyle app

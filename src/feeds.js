@@ -1,5 +1,6 @@
 import config from './config.json';
 import events from './events';
+
 const feeds = [];
 
 const populateFeeds = (feed) => {
@@ -35,7 +36,9 @@ const getFeeds = () => {
       events.emit('stopFetching');
       return arr;
     })
-    .catch((err) => console.log(err));
+    .catch(() => {
+      events.emit('errorFetching');
+    });
 }
 
 export default {

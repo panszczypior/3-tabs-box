@@ -11,18 +11,30 @@ events.on('startFetching', () => {
 events.on('stopFetching', () => {
   spinner.classList.add('hide');
 });
+events.on('errorFetching', () => {
+  spinner.classList.add('hide');
+});
+
+const clearPrevTab = (containerId) => {
+  const elem = document.getElementById(containerId);
+  if (elem) {
+    elem.style.display = 'none';
+  }
+};
 
 const renderStaticContent = (container, content) => {
+  container.style.display = 'block';
   container.appendChild(content);
 };
 
 const renderDynamicContent = (container, content) => {
+  container.style.display = 'block';
   container.innerHTML = '';
   container.appendChild(content);
 };
 
 const renderLogs = () => {
-  const containerId = 'logs';
+  const containerId = 'first-logs';
   const container = document.getElementById(containerId);
   if (!container.hasChildNodes()) {
     const {
@@ -47,8 +59,9 @@ const renderLogs = () => {
 };
 
 const renderFeeds = () => {
-  const containerId = 'feeds';
+  const containerId = 'second-feeds';
   const container = document.getElementById(containerId);
+  // container.style.display = 'block';
   feeds.get().then((data) => {
     const feed = createList({
       list: 'list',
@@ -59,8 +72,9 @@ const renderFeeds = () => {
 };
 
 const renderFlickr = (text) => {
-  const containerId = 'flickr';
+  const containerId = 'third-flickr';
   const container = document.getElementById(containerId);
+  // container.style.display = 'block';
   flickrApi.get(text).then((data) => {
     const flickr = createGallery({
       gallery: 'photos-container',
@@ -70,18 +84,31 @@ const renderFlickr = (text) => {
   });
 };
 
-const initialTabId = '#logs';
+const initialTabId = '#first';
 
-const hashChangeHandler = () => {
+// const anchors = document.querySelectorAll('.tab-menu-item-link');
+// [...anchors].forEach(anchor => {
+//   //
+// });
+// console.log(anchors);
+let prevContainerId;
+
+const hashChangeHandler = (a,b,c) => {
+  clearPrevTab(prevContainerId);
   if (!location.hash) {
     return location.assign(initialTabId);
   }
   switch (location.hash) {
-  case '#feeds':
-    return renderFeeds();
-  case '#flickr':
-    return renderFlickr();
+  case '#second':
+    prevContainerId = 'second-feeds';
+    renderFeeds();
+    break;
+  case '#third':
+    prevContainerId = 'third-flickr';
+    renderFlickr();
+    break;
   default:
+    prevContainerId = 'first-logs';
     renderLogs();
     break;
   }
@@ -103,3 +130,12 @@ const renderFlickrWrapper = (event) => {
 
 const handleKeyUp = debounce(renderFlickrWrapper, 400);
 input.addEventListener('keyup', handleKeyUp.bind(this));
+
+// document.querySelector('.tab-menu').addEventListener('click', (e) => {
+//   // if (e.target && e.target.nodeName === 'A') {
+//   //   location.reload();
+//   // }
+//
+//   // console.log(e.target.hash);
+//   window.scrollTo(0,0);
+// });
