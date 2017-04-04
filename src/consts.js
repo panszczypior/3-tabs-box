@@ -12,13 +12,27 @@ const classNames = {
   photo: 'photos-container__photo',
 };
 
+const styles = {
+  block: 'block',
+};
+
+const hash = {
+  first: '#first',
+  second: '#second',
+  third: '#third',
+};
+
 const consts = {
   classNames,
   tabContentIds,
+  styles,
+  hash,
 };
 
 export {
   consts as default,
   classNames,
   tabContentIds,
+  styles,
+  hash,
 };
