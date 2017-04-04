@@ -25,12 +25,10 @@ const getFeeds = () => {
       populateFeeds(feed.entries);
       return httpGet(`https://api.feednami.com/api/v1.1/feeds/load?url=${config.registerUrl}`);
     })
-    .catch(() => httpGet(`https://api.feednami.com/api/v1.1/feeds/load?url=${config.registerUrl}`))
     .then(({ feed }) => {
       populateFeeds(feed.entries);
       return httpGet(`https://api.feednami.com/api/v1.1/feeds/load?url=${config.arstechnica}`);
     })
-    .catch(() => httpGet(`https://api.feednami.com/api/v1.1/feeds/load?url=${config.arstechnica}`))
     .then(({ feed }) => {
       populateFeeds(feed.entries);
       const arr = sortFeeds(feeds);
