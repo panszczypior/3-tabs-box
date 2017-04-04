@@ -10,8 +10,8 @@
 // restyle app
 // add style lint
 // add scale picture while hover
-//changing tab from first to second still causes problems -> load logs as async task
-//generic font, font-size, spaccing letter etc
+// faster loading time for pictures
+// reorganize strcuture of app folders
 
 const events = {};
 

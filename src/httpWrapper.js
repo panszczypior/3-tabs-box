@@ -38,11 +38,45 @@ const httpGet = (url) => {
   return promise;
 };
 
+const readTextFile = (file) => {
+  if (activeRequest) {
+    activeRequest.abort();
+  }
+
+  const rawFile = new XMLHttpRequest();
+  activeRequest = rawFile;
+  const promise = new Promise((resolve, reject) => {
+    const errorText = 'Couldn\'t get data';
+
+    rawFile.onload = () => {
+      if (
+        rawFile.readyState === 4 &&
+        (rawFile.status === 200 || rawFile.status === 0)
+      ) {
+        activeRequest = null;
+        resolve(rawFile.responseText);
+      } else {
+        reject(errorText); // extract
+      }
+    };
+
+    rawFile.onerror = () => {
+      reject(errorText);
+    };
+  });
+
+  rawFile.open('GET', file, true);
+  rawFile.send(null);
+  return promise;
+};
+
 const httpWrapper = {
   httpGet,
+  readTextFile,
 };
 
 export {
   httpWrapper as default,
   httpGet,
+  readTextFile,
 };

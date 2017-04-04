@@ -1,4 +1,4 @@
-import parsedLogs from './logs';
+import logs from './logs';
 import { createList, createGallery, debounce } from './helpers';
 import feeds from './feeds';
 import events from './events';
@@ -36,24 +36,22 @@ const renderDynamicContent = (container, content) => {
 const renderLogs = () => {
   const containerId = 'first-logs';
   const container = document.getElementById(containerId);
-  const {
-    hostnames,
-    files,
-  } = parsedLogs;
-  const topHostnames = hostnames.slice(0, 5);
-  const topFiles = files.slice(0, 5);
-  const hostsList = createList({
-    list: 'list',
-    item: '__item',
-  }, topHostnames, 'logs');
+  logs.get().then(({ hostnames, files }) => {
+    const topHostnames = hostnames.slice(0, 5);
+    const topFiles = files.slice(0, 5);
+    const hostsList = createList({
+      list: 'list',
+      item: '__item',
+    }, topHostnames, 'logs');
 
-  const filesList = createList({
-    list: 'list',
-    item: '__item',
-  }, topFiles, 'logs');
-  container.innerHTML = '';
-  renderStaticContent(container, hostsList);
-  renderStaticContent(container, filesList);
+    const filesList = createList({
+      list: 'list',
+      item: '__item',
+    }, topFiles, 'logs');
+    container.innerHTML = '';
+    renderStaticContent(container, hostsList);
+    renderStaticContent(container, filesList);
+  });
 };
 
 const renderFeeds = () => {
@@ -119,7 +117,7 @@ window.addEventListener('DOMContentLoaded', DOMContentLoadedHadler);
 
 window.addEventListener('hashchange', hashChangeHandler);
 
-const input = document.querySelector('.tab-content-container__input');
+const input = document.querySelector('.material-design-textarea-component__input');
 
 const renderFlickrWrapper = (event) => {
   renderFlickr(event.target.value);
@@ -129,10 +127,7 @@ const handleKeyUp = debounce(renderFlickrWrapper, 400);
 input.addEventListener('keyup', handleKeyUp.bind(this));
 
 // document.querySelector('.tab-menu').addEventListener('click', (e) => {
-//   // if (e.target && e.target.nodeName === 'A') {
-//   //   location.reload();
-//   // }
-//
-//   // console.log(e.target.hash);
-//   window.scrollTo(0,0);
+//   if (e.target && e.target.nodeName === 'A') {
+//     location.reload();
+//   }
 // });

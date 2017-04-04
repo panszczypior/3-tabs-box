@@ -1,31 +1,6 @@
 import parse from 'clf-parser';
-import logs from '../assets/varnish.log';
-
-const readTextFile = (file) => {
-  const rawFile = new XMLHttpRequest();
-  const promise = new Promise((resolve, reject) => {
-    const errorText = 'Couldn\'t get data';
-
-    rawFile.open('GET', file, false);
-    rawFile.onload = () => {
-      if (
-        rawFile.readyState === 4 &&
-        (rawFile.status === 200 || rawFile.status === 0)
-      ) {
-        resolve(rawFile.responseText);
-      } else {
-        reject(errorText); // extract
-      }
-    };
-
-    rawFile.onerror = () => {
-      reject(errorText);
-    };
-    rawFile.send(null);
-  });
-
-  return promise;
-};
+import { readTextFile } from './httpWrapper'; //async way
+import events from './events';
 
 const parseLogs = (data) => {
   const initialAcc = {
@@ -88,10 +63,21 @@ const sortLogs = (data) => {
   };
 };
 
-// export default {
-//   parsed: readTextFile('../assets/varnish.log')
-//     .then(parseLogs)
-//     .then(sortLogs),
-// };
+const getLogs = () => {
+  events.emit('startFetching');
+  return readTextFile('../assets/varnish.log')
+    .then(parseLogs)
+    .then((data) => {
+      events.emit('stopFetching');
+      return sortLogs(data);
+    })
+    .catch(() => {
+      events.emit('errorFetching');
+    });
+};
 
-export default sortLogs(parseLogs(logs));
+export default {
+  get: getLogs,
+};
+
+// export default sortLogs(parseLogs(logs));
