@@ -89,6 +89,9 @@ nav {
   box-sizing: border-box;
   cursor: pointer;
   border-radius: 3px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .hide {
@@ -141,8 +144,10 @@ nav {
 }
 
 .photo {
-  display: block;
-  width: 200px;
-  height: 200px;
-  margin: 10px 10px;
+  width: 300px;
+  height: 300px;
+  margin: 10px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 }

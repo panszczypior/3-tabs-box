@@ -37,7 +37,7 @@ const createPhoto = (type, className, url) => {
   elem.className = elem.className
     ? elem.className
     : 'photo';
-  elem.src = url;
+  elem.style.backgroundImage = `url(${url})`;
   return elem;
 };
 
@@ -50,7 +50,7 @@ const createGallery = (classNames, items) => {
     ? classNames.gallery
     : 'photos-container';
   items.forEach((item) => {
-    const elem = createPhoto('img', classNames.photo, item.medium);
+    const elem = createPhoto('div', classNames.photo, item.medium);
     gallery.appendChild(elem);
   });
 
