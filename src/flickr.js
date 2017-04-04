@@ -2,9 +2,9 @@ import config from './config.json';
 import events from './events';
 import { httpGet } from './httpWrapper';
 
-const getPhotos = (text = 'Kraków') => {
+const getPhotos = (text = 'Kraków', perPage = 25) => {
   events.emit('startFetching');
-  return httpGet(`${config.flickUrl}&text=${text}`)
+  return httpGet(`${config.flickUrl}&text=${text}&per_page=${perPage}`)
     .then((data) => {
       const photos = data.photos.photo.map((photo) => {
         const { farm, server, id, secret } = photo;
