@@ -1,13 +1,31 @@
-@import 'reset';
+@import 'normalize';
+@import 'fonts';
+
+$primary-color: rgba(176, 190, 197, 1);
+$primary-color-hover: rgba(144, 164, 174, 1);
+$primary-color-light: rgba(236, 239, 241, 1);
+
+$secondary-color: rgba(1, 87, 155, 1);
+
+$default-box-shadow-card: 0 1px 3px rgba(0, 0, 0, 0.19), 0 1px 2px rgba(0, 0, 0, 0.24);
+$hover-box-shadow-card: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+
+$default-box-shadow-list__item: 0 1px 2px rgba(0, 0, 0, 0.19), 0 1px 1px rgba(0, 0, 0, 0.24);
+$hover-box-shadow-list__item: 0 3px 2px rgba(0, 0, 0, 0.45);
 
 * {
   box-sizing: border-box;
+  font-family: Roboto-Regular;
+  letter-spacing: 0.04em;
+}
+
+@mixin border-radius($radius) {
+  border-radius: $radius;
 }
 
 nav {
   display: flex;
   width: 100%;
-  background-color: coral;
   min-height: 50px;
 }
 
@@ -18,15 +36,17 @@ nav {
 .tab-menu {
   display: flex;
   width: 100%;
+  margin: 0px;
+  padding: 0px;
 }
 
-.tab-menu-item {
+.tab-menu__item {
   display: flex;
   height: 100%;
   flex: 1 1 auto;
 }
 
-.tab-menu-item-link {
+.tab-menu__link {
   display: flex;
   flex: 1 1 auto;
   justify-content: center;
@@ -35,15 +55,15 @@ nav {
   border: none;
   outline: none;
   font-size: 15px;
-  font-family: Roboto;
+  font-family: Roboto-Bold;
   color: #fff;
   text-transform: uppercase;
   text-decoration: none;
-  background-color: lightgrey;
+  background-color: $primary-color;
   overflow: hidden;
 
   &:hover {
-    background-color: grey;
+    background-color: $primary-color-hover;
   }
 }
 
@@ -57,42 +77,47 @@ nav {
   width: 100%;
 }
 
+.tab-content-container__input {
+  margin: 25px auto;
+  width: 200px;
+  font-size: 20px;
+  display: block;
+  outline: none;
+  border: 1px solid black;
+  transition: all 0.3s linear;
+}
+
 .list {
-  margin: 0 auto;
+  margin: 25px auto;
   padding: 0;
   overflow-y: auto;
   border: 1px solid rgba(0, 0, 0, 0.1);
   padding: 5px 5px 0 5px;
-  border-left: none;
-  border-right: none;
-  border-top: none;
+  border: none;
 }
 
-.list-item {
+.list__item {
+  @include border-radius(3px);
   list-style: none;
-  background-color: rgba(0, 0, 0, 0.05);
   background-image:
     linear-gradient(
       90deg,
-      #FFD32E 10px,
-      #EEE 10px,
-      #EEE 11px,
-      transparent 11px);
-  padding: 10px 15px 10px 25px;
+      $secondary-color 10px,
+      $primary-color-light 10px);
+  padding: 0.5em 1em;
   border: 1px solid #CCC;
-  box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.5);
+  box-shadow: $default-box-shadow-list__item;
   margin-bottom: 5px;
   width: 100%;
-  box-sizing: border-box;
   cursor: pointer;
-  border-radius: 3px;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-}
+  transition: all 0.3s linear;
 
-.hide {
-  display: none;
+  &:hover {
+    box-shadow: $hover-box-shadow-list__item;
+  }
 }
 
 .spinner {
@@ -106,7 +131,7 @@ nav {
   height: 50px;
 
   & .path {
-    stroke: hsl(210, 70, 75);
+    stroke: $primary-color;
     stroke-linecap: round;
     animation: dash 1.5s ease-in-out infinite;
   }
@@ -141,28 +166,21 @@ nav {
 }
 
 .photo {
+  @include border-radius(3px);
   width: 300px;
   height: 300px;
   margin: 10px;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  border-radius: 3px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.19), 0 1px 2px rgba(0, 0, 0, 0.24);
+  box-shadow: $default-box-shadow-card;
   transition: all 0.3s linear;
 
   &:hover {
-    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+    box-shadow: $hover-box-shadow-card;
   }
 }
 
-
-.search-photo-input {
-  margin: 25px auto;
-  width: 200px;
-  font-size: 20px;
-  display: block;
-  outline: none;
-  border: 1px solid black;
-  transition: all 0.3s linear;
+.hide {
+  display: none;
 }

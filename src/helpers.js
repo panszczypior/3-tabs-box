@@ -3,7 +3,7 @@ const createElement = (type, className, data) => {
   const text = document.createTextNode(data);
   elem.className = elem.className
     ? elem.className
-    : 'list-item';
+    : 'list__item';
   elem.appendChild(text);
   return elem;
 };

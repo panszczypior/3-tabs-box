@@ -44,12 +44,12 @@ const renderLogs = () => {
   const topFiles = files.slice(0, 5);
   const hostsList = createList({
     list: 'list',
-    item: 'item',
+    item: '__item',
   }, topHostnames, 'logs');
 
   const filesList = createList({
     list: 'list',
-    item: 'item',
+    item: '__item',
   }, topFiles, 'logs');
   container.innerHTML = '';
   renderStaticContent(container, hostsList);
@@ -62,7 +62,7 @@ const renderFeeds = () => {
   feeds.get().then((data) => {
     const feed = createList({
       list: 'list',
-      item: 'item',
+      item: '__item',
     }, data, 'feeds');
     renderDynamicContent(container, feed);
   });
@@ -83,7 +83,7 @@ const renderFlickr = (text) => {
 
 const initialTabId = '#first';
 
-// const anchors = document.querySelectorAll('.tab-menu-item-link');
+// const anchors = document.querySelectorAll('.tab-menu__link');
 // [...anchors].forEach(anchor => {
 //   //
 // });
@@ -119,7 +119,7 @@ window.addEventListener('DOMContentLoaded', DOMContentLoadedHadler);
 
 window.addEventListener('hashchange', hashChangeHandler);
 
-const input = document.querySelector('.search-photo-input');
+const input = document.querySelector('.tab-content-container__input');
 
 const renderFlickrWrapper = (event) => {
   renderFlickr(event.target.value);
