@@ -4,14 +4,15 @@
 // load partially pictures ? related ^
 // add localstorage -> logs
 // add alternative to get hostnames a.href -> logs
-// check document.querySelector, you shouldn't touch dom too much
 // test on different browsers
 // test on mobile devices
 // restyle app
 // add style lint
 // faster loading time for pictures
 // reorganize strcuture of app folders
-// const
+// headers
+// colors from md input
+// input listener off 
 
 const events = {};
 
