@@ -1,7 +1,7 @@
 import events from './events';
 import { classNames } from './consts';
+import { spinner } from './domElements';
 
-const spinner = document.querySelector('.spinner');
 events.on('startFetching', () => {
   spinner.classList.remove(classNames.hide);
 });
