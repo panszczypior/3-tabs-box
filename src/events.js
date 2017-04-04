@@ -8,6 +8,8 @@
 // test on different browsers
 // test on mobile devices
 // restyle app
+// add style lint
+// add scale picture while hover
 
 const events = {};
 
