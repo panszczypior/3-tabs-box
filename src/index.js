@@ -1,7 +1,7 @@
 /* eslint no-unused-vars:0 */
-import { debounce } from './helpers';
-import { tabContentIds, hash } from './consts';
-import eventsSubs from './eventsSubscriptions';
+import { debounce } from './utils/helpers';
+import { tabContentIds, hash } from './utils/consts';
+import eventsSubs from './events-subscriptions';
 import { input } from './domElements';
 import { clearPrevTab, renderLogs, renderFeeds, renderFlickr } from './render';
 

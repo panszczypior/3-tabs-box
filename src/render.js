@@ -1,9 +1,9 @@
 /* eslint no-underscore-dangle:0 */
-import logs from './logs';
-import feeds from './feeds';
-import flickrApi from './flickr';
-import { styles, tabContentIds, classNames } from './consts';
-import { createList, createGallery } from './helpers';
+import logs from './api/logs';
+import feeds from './api/feeds';
+import flickrApi from './api/flickr';
+import { styles, tabContentIds, classNames } from './utils/consts';
+import { createList, createGallery } from './utils/helpers';
 
 const renderStaticContent = (container, content) => {
   const _container = container;

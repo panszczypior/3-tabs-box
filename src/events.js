@@ -5,14 +5,10 @@
 // add localstorage -> logs
 // add alternative to get hostnames a.href -> logs
 // test on different browsers
-// test on mobile devices
-// restyle app
-// add style lint
 // faster loading time for pictures
-// reorganize strcuture of app folders
 // headers
-// colors from md input
-// input listener off 
+// md input bem convention
+// input listener off
 
 const events = {};
 

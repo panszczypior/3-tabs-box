@@ -1,6 +1,6 @@
 import parse from 'clf-parser';
-import { readTextFile } from './httpWrapper'; // async way
-import events from './events';
+import { readTextFile } from '../utils/http-wrapper'; // async way
+import events from '../events';
 
 const parseLogs = (data) => {
   const initialAcc = {

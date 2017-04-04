@@ -1,5 +1,5 @@
 import events from './events';
-import { classNames } from './consts';
+import { classNames } from './utils/consts';
 import { spinner } from './domElements';
 
 events.on('startFetching', () => {

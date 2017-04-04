@@ -10,7 +10,7 @@ module.exports = {
   entry: {
     index: [
       './index.js',
-      './main.scss',
+      './css/main.scss',
     ],
   },
   output: {

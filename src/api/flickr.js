@@ -1,6 +1,6 @@
-import config from './config.json';
-import events from './events';
-import { httpGet } from './httpWrapper';
+import config from '../utils/config.json';
+import events from '../events';
+import { httpGet } from '../utils/http-wrapper';
 
 const getPhotos = (text = 'Kraków', perPage = 25) => {
   events.emit('startFetching');
