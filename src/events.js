@@ -1,14 +1,9 @@
-// second tab goes down after few click on it -> hash id problem
-// requests only when hash change
-// refresh feeds every time u hit refresh
-//click on menu should refresh
+// refresh feeds every time u hit again tab button
 // params page, per_page -> flickr
-// search -> flickr
 // spinner while loading pictures -> flickr
-// load partially pictures ?
+// load partially pictures ? related ^
 // add localstorage -> logs
 // add alternative to get hostnames a.href -> logs
-// clear asynchronus requests if tab is changed
 // check document.querySelector, you shouldn't touch dom too much
 // test on different browsers
 // test on mobile devices
