@@ -53,8 +53,3 @@ const getPhotos = (text = 'Kraków') => {
 export default {
   get: getPhotos,
 };
-
-
-// params page, per_page
-// search
-// spinner while loading pictures

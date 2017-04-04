@@ -96,11 +96,6 @@ window.addEventListener('DOMContentLoaded', DOMContentLoadedHadler);
 window.addEventListener('hashchange', hashChangeHandler);
 
 const input = document.getElementById('input');
-// input.addEventListener('keyup', (e) => {
-//   console.log(e.target.value);
-//   // renderFlickr(e.target.value);
-//   // e.target.value = '';
-// });
 
 const renderFlickrWrapper = (event) => {
   renderFlickr(event.target.value);

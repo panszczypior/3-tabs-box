@@ -95,7 +95,3 @@ const sortLogs = (data) => {
 // };
 
 export default sortLogs(parseLogs(logs));
-
-
-// add localstorage
-// add alternative to get hostnames a.href
