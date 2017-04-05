@@ -16,6 +16,7 @@ const on = (eventName, fn) => {
   events[eventName] = events[eventName] || [];
   events[eventName].push(fn);
 };
+
 const off = (eventName, fn) => {
   if (events[eventName]) {
     for (let i = 0; i < events[eventName].length; i += 1) {
@@ -26,6 +27,7 @@ const off = (eventName, fn) => {
     }
   }
 };
+
 const emit = (eventName, data) => {
   if (events[eventName]) {
     events[eventName].forEach((fn) => {

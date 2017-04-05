@@ -2,7 +2,7 @@
 import { debounce } from './utils/helpers';
 import { tabContentIds, hash } from './utils/consts';
 import eventsSubs from './events-subscriptions';
-import { input } from './domElements';
+import { input } from './dom-elements';
 import { clearPrevTab, renderLogs, renderFeeds, renderFlickr } from './render';
 
 let prevContainerId;
@@ -25,9 +25,7 @@ const hashChangeHandler = () => {
   }
 };
 
-const DOMContentLoadedHadler = () => {
-  hashChangeHandler();
-};
+const DOMContentLoadedHadler = hashChangeHandler;
 
 const renderFlickrWrapper = (event) => {
   renderFlickr(event.target.value);

@@ -19,7 +19,7 @@ const renderDynamicContent = (container, content) => {
 };
 
 const clearPrevTab = (containerId) => {
-  const elem = document.getElementById(containerId);
+  const elem = document.querySelector(`#${containerId}`);
   if (elem) {
     elem.style.display = 'none';
   }
@@ -33,7 +33,7 @@ const render = {
 
 const renderLogs = () => {
   const containerId = tabContentIds.logs;
-  const container = document.getElementById(containerId);
+  const container = document.querySelector(`#${containerId}`);
   logs.get().then(({ hostnames, files }) => {
     const topHostnames = hostnames.slice(0, 5);
     const topFiles = files.slice(0, 5);
@@ -55,7 +55,7 @@ const renderLogs = () => {
 
 const renderFeeds = () => {
   const containerId = tabContentIds.feeds;
-  const container = document.getElementById(containerId);
+  const container = document.querySelector(`#${containerId}`);
   feeds.get().then((data) => {
     const { list, listItem } = classNames;
     const feed = createList({
@@ -68,7 +68,7 @@ const renderFeeds = () => {
 
 const renderFlickr = (text) => {
   const containerId = tabContentIds.flickr;
-  const container = document.getElementById(containerId);
+  const container = document.querySelector(`#${containerId}`);
   flickrApi.get(text).then((data) => {
     const flickr = createGallery({
       gallery: classNames.photosGallery,

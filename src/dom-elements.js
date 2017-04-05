@@ -1,5 +1,5 @@
 const spinner = document.querySelector('.spinner');
-const input = document.querySelector('.material-design-textarea-component__input');
+const input = document.querySelector('.md-input-component__input');
 
 const elements = {
   spinner,
