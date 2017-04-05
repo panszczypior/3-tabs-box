@@ -18,9 +18,6 @@ nav {
   min-height: 50px;
 }
 
-.tab-content {
-  display: none;
-}
 
 .tab-menu {
   display: flex;
@@ -60,9 +57,17 @@ nav {
   display: flex;
   max-width: 800px;
   margin: 0 auto;
+
+  h3 {
+    color: $secondary-color;
+    display: flex;
+    justify-content: center;
+    text-transform: uppercase;
+  }
 }
 
-.tab-content {
+.tab-content-container__content {
+  display: none;
   width: 100%;
 }
 
