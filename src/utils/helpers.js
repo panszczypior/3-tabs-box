@@ -65,6 +65,14 @@ const debounce = (fn, wait) => {
   };
 };
 
+const createHeader = (data, className) => {
+  const header = document.createElement('h3');
+  const text = document.createTextNode(data);
+  header.className = className || '';
+  header.appendChild(text);
+  return header;
+};
+
 const formatDate = date => date.toISOString().substring(0, 19).replace('T', ' ');
 
 const helpers = {
@@ -72,6 +80,7 @@ const helpers = {
   createGallery,
   debounce,
   formatDate,
+  createHeader,
 };
 
 export {
@@ -80,4 +89,5 @@ export {
   createGallery,
   debounce,
   formatDate,
+  createHeader,
 };

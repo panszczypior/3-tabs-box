@@ -2,19 +2,14 @@
 import logs from './api/logs';
 import feeds from './api/feeds';
 import flickrApi from './api/flickr';
-import { styles, tabContentIds, classNames } from './utils/consts';
-import { createList, createGallery } from './utils/helpers';
+import { styles, tabContentIds, classNames, headers } from './utils/consts';
+import { createList, createGallery, createHeader } from './utils/helpers';
 
-const renderStaticContent = (container, content) => {
+const render = (container, content, header) => {
   const _container = container;
   _container.style.display = styles.block;
-  _container.appendChild(content);
-};
-
-const renderDynamicContent = (container, content) => {
-  const _container = container;
-  _container.style.display = styles.block;
-  _container.innerHTML = '';
+  const _header = header || document.createElement('div');
+  _container.appendChild(_header);
   _container.appendChild(content);
 };
 
@@ -23,12 +18,6 @@ const clearPrevTab = (containerId) => {
   if (elem) {
     elem.style.display = 'none';
   }
-};
-
-const render = {
-  renderStaticContent,
-  renderDynamicContent,
-  clearPrevTab,
 };
 
 const renderLogs = () => {
@@ -48,8 +37,10 @@ const renderLogs = () => {
       item: listItem,
     }, topFiles, tabContentIds.logs);
     container.innerHTML = '';
-    renderStaticContent(container, hostsList);
-    renderStaticContent(container, filesList);
+    const headerHostnames = createHeader(headers.logs.hostnames);
+    const headerFiles = createHeader(headers.logs.files);
+    render(container, hostsList, headerHostnames);
+    render(container, filesList, headerFiles);
   });
 };
 
@@ -62,7 +53,8 @@ const renderFeeds = () => {
       list,
       item: listItem,
     }, data, tabContentIds.feeds);
-    renderDynamicContent(container, feed);
+    const header = createHeader(headers.feeds);
+    render(container, feed, header);
   });
 };
 
@@ -74,14 +66,14 @@ const renderFlickr = (text) => {
       gallery: classNames.photosGallery,
       photo: classNames.photo,
     }, data);
-    renderStaticContent(container, flickr);
+    render(container, flickr);
   });
 };
 
 export {
-  render as default,
   clearPrevTab,
   renderLogs,
   renderFeeds,
   renderFlickr,
+  render,
 };

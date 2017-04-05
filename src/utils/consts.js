@@ -22,11 +22,20 @@ const hash = {
   third: '#third',
 };
 
+const headers = {
+  feeds: 'feeds',
+  logs: {
+    hostnames: 'top hostnames',
+    files: 'top files',
+  },
+};
+
 const consts = {
   classNames,
   tabContentIds,
   styles,
   hash,
+  headers,
 };
 
 export {
@@ -35,4 +44,5 @@ export {
   tabContentIds,
   styles,
   hash,
+  headers,
 };

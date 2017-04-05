@@ -1,15 +1,3 @@
-// refresh feeds every time u hit again tab button
-// params page, per_page -> flickr
-// spinner while loading pictures -> flickr
-// load partially pictures ? related ^
-// add localstorage -> logs
-// add alternative to get hostnames a.href -> logs
-// test on different browsers
-// faster loading time for pictures
-// headers
-// md input bem convention
-// input listener off
-
 const events = {};
 
 const on = (eventName, fn) => {
