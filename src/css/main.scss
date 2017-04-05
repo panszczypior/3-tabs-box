@@ -177,7 +177,7 @@ nav {
   display: none;
 }
 
-.material-design-textarea-component {
+.md-input-component {
   position: relative;
   margin: 25px auto;
   width: 256px;
@@ -189,7 +189,7 @@ nav {
   box-sizing: border-box;
 }
 
-.material-design-textarea-component__fixed-label {
+.md-input-component__label {
   position: absolute;
   user-select: none;
   top: 4px;
@@ -198,7 +198,7 @@ nav {
   line-height: 15px;
 }
 
-.material-design-textarea-component__input {
+.md-input-component__input {
   width: 100%;
   overflow-y: hidden;
   background: transparent;
@@ -214,11 +214,11 @@ nav {
   height: 17px;
 }
 
-.material-design-textarea-component__input:focus ~ .material-design-textarea-component__fixed-label {
+.md-input-component__input:focus ~ .md-input-component__label {
   color: $secondary-color;
 }
 
-.material-design-textarea-component__exapandable-label {
+.md-input-component__highlighter {
   display: block;
   position: absolute;
   bottom: 0;
@@ -234,7 +234,7 @@ nav {
   visibility: hidden;
 }
 
-.material-design-textarea-component__input:focus ~ .material-design-textarea-component__exapandable-label {
+.md-input-component__input:focus ~ .md-input-component__highlighter {
   transform: scaleX(1);
   visibility: visible;
 }
