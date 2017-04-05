@@ -1,6 +1,7 @@
 import config from '../utils/config.json';
 import events from '../events';
 import { httpGet } from '../utils/http-wrapper';
+import { formatDate } from '../utils/helpers';
 
 const feeds = [];
 
@@ -14,8 +15,12 @@ const populateFeeds = (feed) => {
 const sortFeeds = feed => (
   feed
     .sort((first, second) => second.date_ms - first.date_ms)
-    .map(item => ({ ...item, isoDate: new Date(item.date_ms) }))
-);
+    .map((item) => {
+      const isoDate = new Date(item.date_ms);
+      const formatedDate = formatDate(isoDate);
+      return { ...item, isoDate, formatedDate };
+    },
+));
 
 const getFeeds = () => {
   feeds.length = 0;

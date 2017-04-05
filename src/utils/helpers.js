@@ -20,7 +20,7 @@ const createList = (classNames, items, tabId) => {
       text = `Count: ${item.value}, Name: ${item.key}`;
       break;
     case tabContentIds.feeds:
-      text = `Date: ${item.isoDate}, Title: ${item.title}`;
+      text = `Date: ${item.formatedDate}, Title: ${item.title}`;
       break;
     default:
       break;
@@ -65,10 +65,13 @@ const debounce = (fn, wait) => {
   };
 };
 
+const formatDate = date => date.toISOString().substring(0, 19).replace('T', ' ');
+
 const helpers = {
   createList,
   createGallery,
   debounce,
+  formatDate,
 };
 
 export {
@@ -76,4 +79,5 @@ export {
   createList,
   createGallery,
   debounce,
+  formatDate,
 };
